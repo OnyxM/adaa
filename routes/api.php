@@ -1,19 +1,34 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\BeatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+], function ($router) {
+    Route::post("login", [AuthController::class, "login"]);
+    Route::post("register", [AuthController::class, "register"]);
+    Route::post("logout", [AuthController::class, "logout"]);
+    Route::post("refresh", [AuthController::class, "refresh"]);
 });
+
+Route::group(['middleware'=>'auth'], function () {
+
+    Route::group(['prefix' => 'post'], function(){
+        Route::post('create', [PostController::class, "create"]);
+        Route::post('like', [PostController::class, "like"]);
+    });
+
+    Route::group(['prefix' => 'beat'], function(){
+        Route::post('create', [BeatController::class, "create"]);
+        Route::post('like', [BeatController::class, "like"]);
+    });
+});
+
+Route::get("post/{slug}", [PostController::class, "details"]);
+Route::get("beat/{slug}", [BeatController::class, "details"]);
