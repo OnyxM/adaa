@@ -12,6 +12,12 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    /**
+     * Create a new post
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(Request $request)
     {
         $fields = Validator::make($request->all(),[
@@ -42,6 +48,12 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Get details about a post
+     *
+     * @param $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function details($slug)
     {
         return response()->json([
@@ -49,6 +61,12 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Like a post
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function like(Request $request)
     {
         $fields = Validator::make($request->all(),[

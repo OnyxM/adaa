@@ -21,7 +21,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Get a JWT via given credentials.
+     * Login & Get a JWT via given credentials.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -34,16 +34,6 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
-    }
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
     }
 
     /**
@@ -84,6 +74,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Register a new User
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         $fields = Validator::make($request->all(),[

@@ -13,6 +13,12 @@ use Illuminate\Support\Str;
 
 class BeatController extends Controller
 {
+    /**
+     * Create a new beat
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(Request $request)
     {
         $fields = Validator::make($request->all(),[
@@ -44,6 +50,12 @@ class BeatController extends Controller
         ]);
     }
 
+    /**
+     * Get details about a beat
+     *
+     * @param $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function details($slug)
     {
         return response()->json([
@@ -51,6 +63,12 @@ class BeatController extends Controller
         ]);
     }
 
+    /**
+     * Like a beat
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function like(Request $request)
     {
         $fields = Validator::make($request->all(),[

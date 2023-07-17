@@ -1,0 +1,245 @@
+openapi: 3.0.3
+info:
+  title: TestAdaa
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://127.0.0.1:8000'
+paths:
+  /api/auth/login:
+    post:
+      summary: 'Login & Get a JWT via given credentials.'
+      operationId: loginGetAJWTViaGivenCredentials
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/auth/register:
+    post:
+      summary: 'Register a new User'
+      operationId: registerANewUser
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must be at least 4 characters.'
+                  example: yofszvkzbixdxtfkjfmkodabw
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: harber.jamal@example.net
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: 'Xp.8Ks\i+#*[,n'
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/auth/logout:
+    post:
+      summary: 'Log the user out (Invalidate the token).'
+      operationId: logTheUserOutInvalidateTheToken
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/auth/refresh:
+    post:
+      summary: 'Refresh a token.'
+      operationId: refreshAToken
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/post/create:
+    post:
+      summary: 'Create a new post'
+      operationId: createANewPost
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: kvvncbqmzrqbtdbqukmfmyczkztff
+                post_content:
+                  type: string
+                  description: 'Must be at least 50 characters.'
+                  example: hqvpewfibzbqwkwzffgksblcymolfnzrhguqqgomlikvotrspgndjakehernylsu
+              required:
+                - title
+                - post_content
+      security: []
+  /api/post/like:
+    post:
+      summary: 'Like a post'
+      operationId: likeAPost
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post:
+                  type: string
+                  description: ''
+                  example: quam
+              required:
+                - post
+      security: []
+  /api/beat/create:
+    post:
+      summary: 'Create a new beat'
+      operationId: createANewBeat
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: kfqnlbldwjvwuujaegpcvhnqfvavhhudy
+                premium_file:
+                  type: string
+                  description: ''
+                  example: nesciunt
+                free_file:
+                  type: string
+                  description: ''
+                  example: omnis
+              required:
+                - title
+                - premium_file
+                - free_file
+      security: []
+  /api/beat/like:
+    post:
+      summary: 'Like a beat'
+      operationId: likeABeat
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                beat:
+                  type: string
+                  description: ''
+                  example: error
+              required:
+                - beat
+      security: []
+  '/api/post/{slug}':
+    get:
+      summary: 'Get details about a post'
+      operationId: getDetailsAboutAPost
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  post: null
+                properties:
+                  post:
+                    type: string
+                    example: null
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: slug
+        description: 'The slug of the post.'
+        example: sunt
+        required: true
+        schema:
+          type: string
+  '/api/beat/{slug}':
+    get:
+      summary: 'Get details about a beat'
+      operationId: getDetailsAboutABeat
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  beat: null
+                properties:
+                  beat:
+                    type: string
+                    example: null
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: slug
+        description: 'The slug of the beat.'
+        example: modi
+        required: true
+        schema:
+          type: string
+tags:
+  -
+    name: Endpoints
+    description: ''
