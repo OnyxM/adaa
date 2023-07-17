@@ -16,9 +16,9 @@ class Like extends Model
         ];
 
     /**
-     * Get the parent commentable model (post or video).
+     * Get the parent likeable model (post or beat).
      */
-    public function commentable(): MorphTo
+    public function likeable(): MorphTo
     {
         return $this->morphTo();
     }
