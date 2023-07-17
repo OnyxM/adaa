@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -77,6 +81,35 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
+
+    public function register(Request $request)
+    {
+        $fields = Validator::make($request->all(),[
+            'name' => "required|min:4",
+            'email' => "required|email|unique:users,email",
+            'password' => "required|min:8"
+        ]);
+        if($fields->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'errors' => $fields->errors()
+            ], 400);
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+
+        Log::info("New User Registered.", ['user' => $user->id]);
+
+        return response()->json([
+            'message' => "User created successfully.",
+            'user' => $user
         ]);
     }
 }
